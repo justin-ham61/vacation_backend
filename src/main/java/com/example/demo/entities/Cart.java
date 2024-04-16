@@ -33,10 +33,11 @@ public class Cart {
     @Column(name = "last_update")
     private Date last_update;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "cutomer_id", nullable = false, insertable = false, updatable = false)
     private Customer customer;
 
-
+    @OneToMany (fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_item_id", nullable = false, insertable = false, updatable = false)
     private Set<CartItem> cartItem;
 }
