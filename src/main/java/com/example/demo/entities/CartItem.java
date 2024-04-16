@@ -3,6 +3,8 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name="cart_items")
 @Data
+@Getter
+@Setter
 public class CartItem {
 
     @Id
@@ -22,8 +26,7 @@ public class CartItem {
     @JoinColumn(name = "vacation_id", nullable = false, insertable = false, updatable = false)
     private Vacation vacation;
 
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinColumn(name = "excursion_id", nullable = false, insertable = false, updatable = false )
+    @ManyToMany(mappedBy = "cartitems")
     private Set<Excursion> excursions;
 
     @ManyToOne (fetch = FetchType.LAZY)
@@ -35,4 +38,8 @@ public class CartItem {
 
     @Column(name = "last_update")
     private Date last_update;
+
+    public CartItem(){
+
+    }
 }

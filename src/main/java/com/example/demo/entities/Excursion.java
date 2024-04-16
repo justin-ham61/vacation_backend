@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name="excursions")
 @Data
+@Getter
+@Setter
 public class Excursion {
 
     @Id
@@ -37,8 +40,14 @@ public class Excursion {
     @JoinColumn(name = "vacation_id", nullable = false, insertable = false, updatable = false)
     private Vacation vacation;
 
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_item_id", nullable = false, insertable = false, updatable = false)
+    @JoinTable(name = "excursion_cartitem",
+        joinColumns = @JoinColumn(name="excursion_id"), inverseJoinColumns = @JoinColumn(name="cart_item_id")
+    )
     private Set<CartItem> cartitems;
 
+    public Excursion(){
+
+    }
 }

@@ -2,6 +2,8 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.Set;
@@ -9,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name="customers")
 @Data
+@Getter
+@Setter
 public class Customer {
 
     @Id
@@ -44,4 +48,8 @@ public class Customer {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false, insertable = false, updatable = false)
     private Set<Cart> carts;
+
+    public Customer(){
+
+    }
 }

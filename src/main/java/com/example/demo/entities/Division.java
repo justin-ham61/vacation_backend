@@ -2,6 +2,8 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.dialect.pagination.FetchLimitHandler;
 
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name="divisions")
 @Data
+@Getter
+@Setter
 public class Division {
 
     @Id
@@ -36,4 +40,12 @@ public class Division {
     @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false, insertable = false, updatable = false)
     private Set<Customer> customers;
+
+    public Division(){
+
+    }
+
+    public void setCountry(Country country){
+        this.country = country;
+    }
 }

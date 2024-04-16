@@ -2,6 +2,8 @@ package com.example.demo.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name="carts")
 @Data
+@Getter
+@Setter
 public class Cart {
 
     @Id
@@ -24,6 +28,7 @@ public class Cart {
     @Column(name = "party_size")
     private int party_size;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusType status;
 
@@ -40,4 +45,9 @@ public class Cart {
     @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_item_id", nullable = false, insertable = false, updatable = false)
     private Set<CartItem> cartItem;
+
+    public Cart(){
+
+    }
 }
+
