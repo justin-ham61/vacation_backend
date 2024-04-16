@@ -17,12 +17,25 @@ public class Cart {
     @Column(name = "cart_id")
     private Long id;
 
-
+    @Column(name = "package_price")
     private BigDecimal package_price;
+
+    @Column(name = "party_size")
     private int party_size;
-    private StatusType status;
+
+    @Column(name = "status")
+    private entities.StatusType status;
+
+    @Column(name = "create_date")
     private Date create_date;
+
+    @Column(name = "last_update")
     private Date last_update;
-    private Customer customer;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cutomer_id", nullable = false, insertable = false, updatable = false)
+    private entities.Customer customer;
+
+
     private Set<CartItem> cartItem;
 }
