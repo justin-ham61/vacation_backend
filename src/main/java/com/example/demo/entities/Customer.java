@@ -49,6 +49,9 @@ public class Customer {
     @JoinColumn(name = "cart_id", nullable = false, insertable = false, updatable = false)
     private Set<Cart> carts;
 
+    public void addToCart(Cart cart){
+        this.carts.add(cart);
+    }
     public Customer(){
 
     }

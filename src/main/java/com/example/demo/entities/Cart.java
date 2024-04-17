@@ -46,6 +46,8 @@ public class Cart {
     @JoinColumn(name = "cart_item_id", nullable = false, insertable = false, updatable = false)
     private Set<CartItem> cartItem;
 
+    @Column(name = "order_tracking_number")
+    private String order_tracking_number;
     public Cart(){
 
     }
