@@ -48,13 +48,18 @@ public class Cart {
     private Customer customer;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CartItem> cartItem = new HashSet<>();
+    private Set<CartItem> cartItems = new HashSet<>();
 
     @Column(name = "order_tracking_number")
     private String order_tracking_number;
 
     public Cart(){
 
+    }
+
+    public void addCartItem(CartItem cartItem){
+        cartItems.add(cartItem);
+        cartItem.setCart(this);
     }
 
     @Override

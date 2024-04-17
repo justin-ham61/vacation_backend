@@ -39,7 +39,7 @@ public class Division {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Customer> customers = new HashSet<>();
 
     public Division(){
@@ -48,6 +48,10 @@ public class Division {
 
     public void setCountry(Country country){
         this.country = country;
+    }
+
+    public void addCustomer(Customer customer){
+        this.customers.add(customer);
     }
 
     @Override
