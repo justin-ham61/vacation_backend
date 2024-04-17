@@ -9,18 +9,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.dialect.pagination.FetchLimitHandler;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="divisions")
-@Data
 @Getter
 @Setter
 public class Division {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "division_id")
+    @Column(name = "division_id", nullable = false)
     private Long id;
 
     @Column(name = "division")
@@ -38,11 +39,19 @@ public class Division {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
+    @OneToMany(mappedBy = "division", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Customer> customers = new HashSet<>();
+
     public Division(){
 
     }
 
     public void setCountry(Country country){
         this.country = country;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

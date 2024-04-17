@@ -9,18 +9,18 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="excursions")
-@Data
 @Getter
 @Setter
 public class Excursion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "excursion_id")
+    @Column(name = "excursion_id", nullable = false)
     private Long id;
 
     @Column(name = "excursion_title")
@@ -53,5 +53,10 @@ public class Excursion {
 
     public Excursion(){
 
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

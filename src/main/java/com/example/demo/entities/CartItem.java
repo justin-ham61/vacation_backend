@@ -10,11 +10,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="cart_items")
-@Data
 @Getter
 @Setter
 public class CartItem {
@@ -43,7 +43,14 @@ public class CartItem {
     @UpdateTimestamp
     private Date last_update;
 
+
     public CartItem(){
 
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

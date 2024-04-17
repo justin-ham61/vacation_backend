@@ -5,15 +5,16 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name="customers")
-@Data
 @Getter
 @Setter
 public class Customer {
@@ -50,7 +51,34 @@ public class Customer {
     @JoinColumn(name = "division_id")
     private Division division;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Cart> carts = new HashSet<>();
+
     public Customer(){
 
+    }
+
+    public Customer(String address, String firstName, String lastName, String phone, String postal_code, Division division){
+        this.address = address;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.postal_code = postal_code;
+        this.division = division;
+    }
+
+    public void addCart(Cart cart){
+        this.carts.add(cart);
+        cart.setCustomer(this);
+    }
+
+    public void removeCart(Cart cart){
+        this.carts.remove(cart);
+        cart.setCustomer(null);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
