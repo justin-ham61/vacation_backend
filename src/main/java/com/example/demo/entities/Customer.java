@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,7 +20,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", nullable = false)
+    @Column(name = "customer_id")
     private Long id;
 
     @Column(name = "customer_first_name", nullable = false)
@@ -36,22 +39,17 @@ public class Customer {
     private String phone;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @UpdateTimestamp
     private Date last_update;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "division_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "division_id")
     private Division division;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", nullable = false, insertable = false, updatable = false)
-    private Set<Cart> carts;
-
-    public void addToCart(Cart cart){
-        this.carts.add(cart);
-    }
     public Customer(){
 
     }

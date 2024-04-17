@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,21 +36,20 @@ public class Cart {
     private StatusType status;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @UpdateTimestamp
     private Date last_update;
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "cutomer_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-
-    @OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_item_id", nullable = false, insertable = false, updatable = false)
-    private Set<CartItem> cartItem;
 
     @Column(name = "order_tracking_number")
     private String order_tracking_number;
+
     public Cart(){
 
     }

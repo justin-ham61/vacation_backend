@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -31,18 +33,20 @@ public class Excursion {
     private String image_URL;
 
     @Column(name = "create_date")
+    @CreationTimestamp
     private Date create_date;
 
     @Column(name = "last_update")
+    @UpdateTimestamp
     private Date last_update;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacation_id", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "vacation_id", nullable = false)
     private Vacation vacation;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "excursion_cart_item",
+    @JoinTable(name = "excursion_cartitem",
         joinColumns = @JoinColumn(name="excursion_id"), inverseJoinColumns = @JoinColumn(name="cart_item_id")
     )
     private Set<CartItem> cartitems;
