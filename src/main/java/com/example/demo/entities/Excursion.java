@@ -42,7 +42,7 @@ public class Excursion {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "excursion_cartitem",
+    @JoinTable(name = "excursion_cart_item",
         joinColumns = @JoinColumn(name="excursion_id"), inverseJoinColumns = @JoinColumn(name="cart_item_id")
     )
     private Set<CartItem> cartitems;
