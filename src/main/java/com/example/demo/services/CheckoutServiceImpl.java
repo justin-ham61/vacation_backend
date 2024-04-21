@@ -2,10 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.dao.CartRepository;
 import com.example.demo.dao.CustomerRepository;
-import com.example.demo.entities.Cart;
-import com.example.demo.entities.CartItem;
-import com.example.demo.entities.Customer;
-import com.example.demo.entities.StatusType;
+import com.example.demo.entities.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,7 +46,6 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         cart.setStatus(StatusType.ordered);
         customer.addCart(cart);
-
         cartRepository.save(cart);
 
         return new PurchaseResponse(orderTrackingNumber);
